@@ -1,0 +1,12 @@
+const express = require("express");
+const connectDB = require("./config/db");
+var cors = require("cors");
+const vaccines = require("./routes/api/vaccines");
+const app = express();
+connectDB();
+app.get("/", (req, res) => res.send("Hello world!"));
+app.use("/api/vaccines", vaccines);
+app.use(cors({ origin: true, credentials: true }));
+app.use(express.json({ extended: false }));
+const port = process.env.PORT || 3500;
+app.listen(port, () => console.log(`Server running on port ${port}`));
